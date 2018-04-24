@@ -1,31 +1,28 @@
 package tests;
 
-import actions.DashboardActions;
-import actions.LoginActions;
 import org.testng.annotations.Test;
+import steps.DashBoardSteps;
+import steps.LoginSteps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class LoginTests extends BaseTest {
-    private LoginActions loginActions = new LoginActions();
-    private DashboardActions dashboardActions = new DashboardActions();
+    private LoginSteps loginSteps = new LoginSteps();
+    private DashBoardSteps dashBoardSteps = new DashBoardSteps();
 
     @Test
     public void loginWithValidCredentials() {
-        loginActions.enterUserName("admin");
-        loginActions.enterPassword("admin");
-        loginActions.tapSubmitButton();
-        boolean isDashBoardPageLoaded = dashboardActions.waitForPageToBeLoaded();
-        assertThat("Settings button should be displayed", isDashBoardPageLoaded);
+        //TODO create userCredentials object
+        loginSteps.loginWithValidCredentials("admin", "admin");
+        boolean isSettingsButtonDisplayed = dashBoardSteps.isSettingsButtonDisplayed();
+        assertThat("Settings button should be displayed", isSettingsButtonDisplayed);
     }
 
     @Test
     public void loginWithInvalidCredentials() {
-        loginActions.enterUserName("123");
-        loginActions.enterPassword("123");
-        loginActions.tapSubmitButton();
-        String actualAlertText = loginActions.getTextFromLoginAlert();
+        loginSteps.loginWithInvalidCredentials("123", "123");
+        String actualAlertText = loginSteps.getTextFromLoginAlert();
         String expectedAlertText = "Incorrect user name or password";
         assertThat("Actual text from alert should match expected", actualAlertText, equalTo(expectedAlertText));
     }

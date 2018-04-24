@@ -4,8 +4,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import static driver.SeleniumDriver.getDriver;
 
-public class BasePage {
-    public BasePage() {
+class BasePage {
+    BasePage() {
         PageFactory.initElements(getDriver(), this);
     }
 }
