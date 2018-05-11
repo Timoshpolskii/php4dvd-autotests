@@ -15,7 +15,7 @@ public class LoginSteps {
         dashboardActions.waitForPageToBeLoaded();
     }
 
-    public void loginWithInvalidCredentials(String userName, String password) {
+    public void loginWithIncorrectCredentials(String userName, String password) {
         //The difference from loginWithValidCredentials() is that user stays on login page.
         //User is not navigation on dashboard
         loginActions.waitForPageToBeLoaded();

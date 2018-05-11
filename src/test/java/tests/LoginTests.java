@@ -27,10 +27,9 @@ public class LoginTests extends BaseTest {
         assertThat("Settings button should be displayed", isSettingsButtonDisplayed);
     }
 
-    @Test
-    public void loginWithInvalidCredentials() {
-        //TODO add invalid user creds
-        loginSteps.loginWithInvalidCredentials("123", "123");
+    @Test(dataProvider = "incorrect_user", dataProviderClass = UserCredentialsData.class)
+    public void loginWithIncorrectCredentials(String username, String password) {
+        loginSteps.loginWithIncorrectCredentials(username, password);
         String actualAlertText = loginSteps.getTextFromLoginAlert();
         String expectedAlertText = "Incorrect user name or password";
         assertThat("Actual text from alert should match expected", actualAlertText, equalTo(expectedAlertText));

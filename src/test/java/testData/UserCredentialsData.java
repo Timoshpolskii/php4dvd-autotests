@@ -24,4 +24,12 @@ public class UserCredentialsData {
         return new Object[][]{{user.getUsername(), user.getPassword()}};
     }
 
+    @DataProvider(name = "incorrect_user")
+    public Object[][]  incorrectUserData() throws FileNotFoundException {
+        String INCORRECT_USER_FILEPATH = "../../src/test/resources/fixtures/incorrect_user_credentials.json";
+        TestDataReader<UserObject> userCredentials = new TestDataReader(INCORRECT_USER_FILEPATH, UserObject.class);
+        UserObject user = userCredentials.read();
+        return new Object[][]{{user.getUsername(), user.getPassword()}};
+    }
+
 }
