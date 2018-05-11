@@ -1,7 +1,7 @@
 package actions;
 
 import pages.AddFilmPage;
-import utils.HasWaiter;
+import driver.HasWaiter;
 
 public class AddFilmActions implements HasWaiter {
 
@@ -13,12 +13,12 @@ public class AddFilmActions implements HasWaiter {
         return waiter(15).waitDisplayed(addFilmPage.btnSave);
     }
 
-    public void addTitleOfFilm(String title) {
+    public void addNameOfFilm(String title) {
         addFilmPage.fldTitle.sendKeys(title);
     }
 
-    public void addYearOfFilm(String year) {
-        addFilmPage.fldYear.sendKeys(year);
+    public void addYearOfFilm(int year) {
+        addFilmPage.fldYear.sendKeys(String.valueOf(year));
     }
 
     public void addPersonalNotesOfFilm(String text) {

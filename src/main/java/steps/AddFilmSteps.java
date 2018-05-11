@@ -7,11 +7,11 @@ public class AddFilmSteps {
     private AddFilmActions addFilmActions = new AddFilmActions();
     private FilmDetailsActions filmDetailsActions = new FilmDetailsActions();
 
-    public void addTitleOfFilm(String title) {
-        addFilmActions.addTitleOfFilm(title);
+    public void addNameOfFilm(String title) {
+        addFilmActions.addNameOfFilm(title);
     }
 
-    public void addYearOfFilm(String year) {
+    public void addYearOfFilm(int year) {
         addFilmActions.addYearOfFilm(year);
     }
 

@@ -1,7 +1,7 @@
 package actions;
 
 import pages.DashboardPage;
-import utils.HasWaiter;
+import driver.HasWaiter;
 
 public class DashboardActions implements HasWaiter {
     private DashboardPage dashboardPage = new DashboardPage();

@@ -1,7 +1,7 @@
 package actions;
 
 import pages.FilmDetailsPage;
-import utils.HasWaiter;
+import driver.HasWaiter;
 
 public class FilmDetailsActions implements HasWaiter {
     private FilmDetailsPage filmDetailsPage = new FilmDetailsPage();

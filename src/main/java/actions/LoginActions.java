@@ -1,7 +1,7 @@
 package actions;
 
 import pages.LoginPage;
-import utils.HasWaiter;
+import driver.HasWaiter;
 
 public class LoginActions implements HasWaiter {
     private LoginPage loginPage = new LoginPage();
