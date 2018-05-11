@@ -1,21 +1,22 @@
 package tests;
 
+import actions.AddFilmActions;
+import actions.DashboardActions;
+import actions.FilmDetailsActions;
 import driver.SeleniumDriver;
+import helper.AssertHelper;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import steps.AddFilmSteps;
-import steps.DashBoardSteps;
-import steps.FilmDetailsSteps;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DashBoardTests extends BaseTest {
 
-    private DashBoardSteps dashBoardSteps = new DashBoardSteps();
-    private AddFilmSteps addFilmSteps = new AddFilmSteps();
-    private FilmDetailsSteps filmDetailsSteps = new FilmDetailsSteps();
+    private DashboardActions dashboardActions = new DashboardActions();
+    private AddFilmActions addFilmActions = new AddFilmActions();
+    private FilmDetailsActions filmDetailsActions = new FilmDetailsActions();
 
     @BeforeMethod
     public void openPage() {
