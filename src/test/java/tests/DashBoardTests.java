@@ -31,25 +31,25 @@ public class DashBoardTests extends BaseTest {
         String expectedFilmLanguage = "English1";
         String expectedFilmPersonalNotes = "Film personal notes1";
 
-        dashBoardSteps.pressAddButton();
-        addFilmSteps.addNameOfFilm(expectedFilmName);
-        addFilmSteps.addYearOfFilm(expectedFilmYear);
-        addFilmSteps.addPersonalNotesOfFilm(expectedFilmPersonalNotes);
-        addFilmSteps.addLanguageOfFilm(expectedFilmLanguage);
-        addFilmSteps.saveFilm();
+        dashboardActions.pressAddButton();
+        addFilmActions.waitForPageToBeLoaded();
+        addFilmActions.addNameOfFilm(expectedFilmName);
+        addFilmActions.addYearOfFilm(expectedFilmYear);
+        addFilmActions.addPersonalNotesOfFilm(expectedFilmPersonalNotes);
+        addFilmActions.addLanguageOfFilm(expectedFilmLanguage);
+        addFilmActions.saveFilm();
 
-        String expectedFilmTitle = expectedFilmName + " (" + expectedFilmYear + ")";
-        String actualFilmTitle = filmDetailsSteps.getFilmTitle();
-        assertThat("Actual name of film should be matched with expected",
-                actualFilmTitle, equalTo(expectedFilmTitle));
+        Map<String, String> expectedFilmInfo = new HashMap<>();
+        expectedFilmInfo.put("title", expectedFilmName + " (" + expectedFilmYear + ")");
+        expectedFilmInfo.put("language", "Languages: " + expectedFilmLanguage);
+        expectedFilmInfo.put("personal notes", expectedFilmPersonalNotes);
 
-        String actualFilmLanguage = filmDetailsSteps.getFilmLanguage();
-        assertThat("Actual language of film should be matched with expected",
-                actualFilmLanguage, equalTo("Languages: " + expectedFilmLanguage));
-
-        String actualFilmPersonalNotes = filmDetailsSteps.getFilmPersonalNotes();
-        assertThat("Actual personal notes of film should be matched with expected",
-                actualFilmPersonalNotes, equalTo(expectedFilmPersonalNotes));
+        Map<String, String> actualFilmInfo = new HashMap<>();
+        actualFilmInfo.put("title", filmDetailsActions.getFilmTitle());
+        actualFilmInfo.put("language", filmDetailsActions.getFilmLanguage());
+        actualFilmInfo.put("personal notes", filmDetailsActions.getFilmPersonalNotes());
+        
+        AssertHelper.getDifference(actualFilmInfo, expectedFilmInfo);
     }
 
     @AfterClass
