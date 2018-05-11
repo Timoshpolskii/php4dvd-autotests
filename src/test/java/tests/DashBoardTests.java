@@ -37,7 +37,6 @@ public class DashBoardTests extends BaseTest {
         addFilmSteps.addLanguageOfFilm(expectedFilmLanguage);
         addFilmSteps.saveFilm();
 
-        //TODO create assertion for multiple values
         String expectedFilmTitle = expectedFilmName + " (" + expectedFilmYear + ")";
         String actualFilmTitle = filmDetailsSteps.getFilmTitle();
         assertThat("Actual name of film should be matched with expected",

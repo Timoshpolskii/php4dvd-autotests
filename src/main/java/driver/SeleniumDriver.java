@@ -11,6 +11,7 @@ public class SeleniumDriver {
     private SeleniumDriver(){}
 
     public static synchronized WebDriver getDriver() {
+        //TODO create capability for different browsers
         if (driver == null) {
             System.setProperty("webdriver.chrome.driver", "../../src/main/resources/chromedriver");
             driver = new ChromeDriver();

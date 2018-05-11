@@ -33,4 +33,13 @@ public class BaseTest {
     public void tearDown() {
         SeleniumDriver.getDriver().quit();
     }
+
+    //TODO how to pass login/password in @before method???
+    //TODO remove 'steps' layer
+    //TODO add allure
+    //TODO create screens on test fail
+    //TODO add logger
+    //TODO investigate cucumber
+    //TODO investigate jUnit
+    //TODO move usercredentials in one file
 }

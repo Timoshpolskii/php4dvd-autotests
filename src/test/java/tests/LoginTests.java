@@ -29,9 +29,12 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void loginWithInvalidCredentials() {
+        //TODO add invalid user creds
         loginSteps.loginWithInvalidCredentials("123", "123");
         String actualAlertText = loginSteps.getTextFromLoginAlert();
         String expectedAlertText = "Incorrect user name or password";
         assertThat("Actual text from alert should match expected", actualAlertText, equalTo(expectedAlertText));
     }
+
+    //TODO: Add login with guest user
 }
