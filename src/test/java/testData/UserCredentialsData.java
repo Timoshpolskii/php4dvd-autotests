@@ -19,7 +19,7 @@ public class UserCredentialsData {
     @DataProvider(name = "guest_user")
     public Object[][]  guestData() throws FileNotFoundException {
         String GUEST_USER_FILEPATH = "/Users/andrewtimoshpolskiy/Documents/workspace/php4dvd-autotests/src/test/resources/fixtures/guest_user_credentials.json";
-        TestDataReader userCredentials = new TestDataReader(GUEST_USER_FILEPATH, UserObject.class);
+        TestDataReader<UserObject> userCredentials = new TestDataReader(GUEST_USER_FILEPATH, UserObject.class);
         UserObject user = userCredentials.read();
         return new Object[][]{{user.getUsername(), user.getPassword()}};
     }
