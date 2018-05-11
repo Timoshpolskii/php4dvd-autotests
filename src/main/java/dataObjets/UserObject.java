@@ -22,6 +22,9 @@ public class UserObject {
         return username;
     }
 
+    public String getUserRole() {
+        return userRole;
+    }
 
     public String getPassword() {
         return password;
