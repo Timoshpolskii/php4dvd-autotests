@@ -2,40 +2,36 @@ package tests;
 
 import driver.SeleniumDriver;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import steps.AddFilmSteps;
 import steps.DashBoardSteps;
 import steps.FilmDetailsSteps;
-import steps.LoginSteps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 public class DashBoardTests extends BaseTest {
 
-    private LoginSteps loginSteps = new LoginSteps();
     private DashBoardSteps dashBoardSteps = new DashBoardSteps();
     private AddFilmSteps addFilmSteps = new AddFilmSteps();
     private FilmDetailsSteps filmDetailsSteps = new FilmDetailsSteps();
 
-    @BeforeClass
-    public void loginWithValidCredentials() {
-        //TODO refactor this part
+    @BeforeMethod
+    public void openPage() {
         SeleniumDriver.getDriver().get("http://localhost/php4dvd/");
-        loginSteps.loginWithValidCredentials("admin", "admin");
     }
 
     @Test
     public void checkInfoOfNewAddedFilm() {
         //TODO save film info in FILM object
-        String expectedFilmName = "New Film Title";
-        String expectedFilmYear = "1990";
-        String expectedFilmLanguage = "English";
-        String expectedFilmPersonalNotes = "Film personal notes";
+        String expectedFilmName = "New Film Title1";
+        int expectedFilmYear = 1991;
+        String expectedFilmLanguage = "English1";
+        String expectedFilmPersonalNotes = "Film personal notes1";
 
         dashBoardSteps.pressAddButton();
-        addFilmSteps.addTitleOfFilm(expectedFilmName);
+        addFilmSteps.addNameOfFilm(expectedFilmName);
         addFilmSteps.addYearOfFilm(expectedFilmYear);
         addFilmSteps.addPersonalNotesOfFilm(expectedFilmPersonalNotes);
         addFilmSteps.addLanguageOfFilm(expectedFilmLanguage);
