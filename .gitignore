@@ -1,3 +1,5 @@
 php4dvd-autotests.iml
 /.gradle/
 /.idea/
+/build/
+/out/
