@@ -18,4 +18,12 @@ public class DashboardActions implements HasWaiter {
     public boolean isSettingsButtonDisplayed() {
         return dashboardPage.btnSettings.isDisplayed();
     }
+
+    public boolean isAddButtonDisplayed() {
+        return waiter(5).waitDisplayed(dashboardPage.btnAdd);
+    }
+
+    public boolean isAddButtonAbsent() {
+        return waiter(5).waitAbsent(dashboardPage.btnAdd);
+    }
 }

@@ -1,16 +1,16 @@
 package tests;
 
+import actions.MyProfileActions;
 import driver.SeleniumDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import steps.MyProfileSteps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class MyProfileTests extends BaseTest {
 
-    private MyProfileSteps myProfileSteps = new MyProfileSteps();
+    private MyProfileActions myProfileActions = new MyProfileActions();
 
     @BeforeMethod
     public void openPage() {
@@ -21,7 +21,7 @@ public class MyProfileTests extends BaseTest {
     @Test
     public void checkProfileInfo() {
         String expectedUserName = "admin";
-        String actualUserName = myProfileSteps.getUserName();
+        String actualUserName = myProfileActions.getUserName();
         assertThat("Actual user name should be matched with expected",
                 actualUserName, equalTo(expectedUserName));
     }
