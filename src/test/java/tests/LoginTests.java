@@ -22,14 +22,14 @@ public class LoginTests extends BaseTest {
     }
 
     @Test(dataProvider = "admin_user", dataProviderClass = UserCredentialsData.class)
-    public void loginWithValidCredentials(String username, String password) {
+    public void loginWithAdminCredentials(String username, String password) {
         loginActions.waitForPageToBeLoaded();
         loginActions.enterUserName(username);
         loginActions.enterPassword(password);
         loginActions.tapSubmitButton();
         dashboardActions.waitForPageToBeLoaded();
-        boolean isSettingsButtonDisplayed = dashboardActions.isSettingsButtonDisplayed();
-        assertThat("Settings button should be displayed", isSettingsButtonDisplayed);
+        boolean isAddButtonDisplayed = dashboardActions.isAddButtonDisplayed();
+        assertThat("Add button should be displayed", isAddButtonDisplayed);
     }
 
     @Test(dataProvider = "incorrect_user", dataProviderClass = UserCredentialsData.class)
@@ -43,5 +43,15 @@ public class LoginTests extends BaseTest {
         assertThat("Actual text from alert should match expected", actualAlertText, equalTo(expectedAlertText));
     }
 
-    //TODO: Add login with guest user
+    @Test(dataProvider = "guest_user", dataProviderClass = UserCredentialsData.class)
+    public void loginWithGuestCredentials(String username, String password) {
+        loginActions.waitForPageToBeLoaded();
+        loginActions.enterUserName(username);
+        loginActions.enterPassword(password);
+        loginActions.tapSubmitButton();
+        dashboardActions.waitForPageToBeLoaded();
+        boolean isAddButtonAbsent = dashboardActions.isAddButtonAbsent();
+        assertThat("Add button should NOT be displayed", isAddButtonAbsent);
+    }
+
 }
