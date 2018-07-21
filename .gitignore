@@ -3,3 +3,6 @@ php4dvd-autotests.iml
 /.idea/
 /build/
 /out/
+/.allure/
+.allure/
+/gradle/
