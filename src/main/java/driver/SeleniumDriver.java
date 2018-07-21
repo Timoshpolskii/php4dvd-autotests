@@ -13,7 +13,8 @@ public class SeleniumDriver {
     public static synchronized WebDriver getDriver() {
         //TODO create capability for different browsers
         if (driver == null) {
-            System.setProperty("webdriver.chrome.driver", "../../src/main/resources/chromedriver");
+            String projectPath = System.getProperty("user.dir");
+            System.setProperty("webdriver.chrome.driver", projectPath + "/src/main/resources/chromedriver");
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
