@@ -16,7 +16,7 @@ public class SeleniumDriver {
             String projectPath = System.getProperty("user.dir");
             System.setProperty("webdriver.chrome.driver", projectPath + "/src/main/resources/chromedriver");
             driver = new ChromeDriver();
-            driver.manage().window().maximize();
+//            driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         }
         return driver;
