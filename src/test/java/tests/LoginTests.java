@@ -29,7 +29,8 @@ public class LoginTests extends BaseTest {
         loginActions.tapSubmitButton();
         dashboardActions.waitForPageToBeLoaded();
         boolean isAddButtonDisplayed = dashboardActions.isAddButtonDisplayed();
-        assertThat("Add button should be displayed", isAddButtonDisplayed);
+//        assertThat("Add button should be displayed", isAddButtonDisplayed);
+        assertThat("Add button should be displayed", false);
     }
 
     @Test(dataProvider = "incorrect_user", dataProviderClass = UserCredentialsData.class)
