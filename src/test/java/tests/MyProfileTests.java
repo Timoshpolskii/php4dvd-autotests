@@ -15,6 +15,8 @@ public class MyProfileTests extends BaseTest {
     @BeforeMethod
     public void openPage() {
         //TODO move url to params
+        //TODO Add step for navigation
+        //TODO Add step for assertion
         SeleniumDriver.getDriver().get("http://localhost/php4dvd/?go=profile");
     }
 

@@ -4,5 +4,6 @@ php4dvd-autotests.iml
 /build/
 /out/
 /.allure/
-.allure/
 /gradle/
+/allure-results/
+/target/

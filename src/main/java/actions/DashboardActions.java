@@ -1,7 +1,8 @@
 package actions;
 
-import pages.DashboardPage;
 import driver.HasWaiter;
+import pages.DashboardPage;
+import ru.yandex.qatools.allure.annotations.Step;
 
 public class DashboardActions implements HasWaiter {
     private DashboardPage dashboardPage = new DashboardPage();
@@ -11,6 +12,7 @@ public class DashboardActions implements HasWaiter {
         return waiter(15).waitDisplayed(dashboardPage.btnSettings);
     }
 
+    @Step("Press add button")
     public void pressAddButton() {
         dashboardPage.btnAdd.click();
     }
