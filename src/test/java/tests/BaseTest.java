@@ -43,7 +43,6 @@ public class BaseTest {
     }
 
     //TODO how to pass login/password in @before method???
-    //TODO add allure
     //TODO create screens on test fail
     //TODO add logger
     //TODO investigate cucumber
