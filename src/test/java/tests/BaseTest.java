@@ -2,7 +2,7 @@ package tests;
 
 import actions.DashboardActions;
 import actions.LoginActions;
-import driver.SeleniumDriver;
+import driver.DriverProvider;
 import org.openqa.selenium.Cookie;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -24,22 +24,22 @@ public class BaseTest {
         loginActions.tapSubmitButton();
         dashboardActions.waitForPageToBeLoaded();
 
-        currentSession = SeleniumDriver.getDriver().manage().getCookieNamed("PHPSESSID");
+        currentSession = DriverProvider.getDriver().manage().getCookieNamed("PHPSESSID");
     }
 
     @BeforeMethod()
     public void setSession() {
-        SeleniumDriver.getDriver().manage().addCookie(currentSession);
+        DriverProvider.getDriver().manage().addCookie(currentSession);
     }
 
     @AfterMethod
     public void deleteCookies() {
-        SeleniumDriver.getDriver().manage().deleteAllCookies();
+        DriverProvider.getDriver().manage().deleteAllCookies();
     }
 
     @AfterSuite
     public void tearDown() {
-        SeleniumDriver.getDriver().quit();
+        DriverProvider.getDriver().quit();
     }
 
     //TODO how to pass login/password in @before method???

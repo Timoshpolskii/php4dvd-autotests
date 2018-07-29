@@ -3,6 +3,7 @@ package tests;
 import actions.DashboardActions;
 import actions.LoginActions;
 import driver.SeleniumDriver;
+import driver.DriverProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import testData.UserCredentialsData;
@@ -17,8 +18,8 @@ public class LoginTests extends BaseTest {
 
     @BeforeMethod
     public void clearCookies() {
-        SeleniumDriver.getDriver().manage().deleteAllCookies();
         SeleniumDriver.getDriver().get("http://localhost/php4dvd/");
+        DriverProvider.getDriver().manage().deleteAllCookies();
     }
 
     @Test(dataProvider = "admin_user", dataProviderClass = UserCredentialsData.class)

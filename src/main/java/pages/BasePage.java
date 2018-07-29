@@ -2,7 +2,7 @@ package pages;
 
 import org.openqa.selenium.support.PageFactory;
 
-import static driver.SeleniumDriver.getDriver;
+import static driver.DriverProvider.getDriver;
 
 class BasePage {
     BasePage() {
