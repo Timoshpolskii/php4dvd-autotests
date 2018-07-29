@@ -2,6 +2,7 @@ package tests;
 
 import actions.DashboardActions;
 import actions.LoginActions;
+import actions.NavigationActions;
 import driver.DriverProvider;
 import org.openqa.selenium.Cookie;
 import org.testng.annotations.AfterMethod;
@@ -12,12 +13,12 @@ import org.testng.annotations.BeforeSuite;
 public class BaseTest {
     private LoginActions loginActions = new LoginActions();
     private DashboardActions dashboardActions = new DashboardActions();
+    private NavigationActions navigationActions = new NavigationActions();
     private static Cookie currentSession;
 
     @BeforeSuite()
     public void setUp() {
-        SeleniumDriver.getDriver().get("http://localhost/php4dvd/");
-
+        navigationActions.openHomePage();
         loginActions.waitForPageToBeLoaded();
         loginActions.enterUserName("admin");
         loginActions.enterPassword("admin");

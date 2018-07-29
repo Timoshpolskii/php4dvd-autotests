@@ -1,7 +1,7 @@
 package tests;
 
 import actions.MyProfileActions;
-import driver.SeleniumDriver;
+import actions.NavigationActions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -11,13 +11,11 @@ import static org.hamcrest.Matchers.equalTo;
 public class MyProfileTests extends BaseTest {
 
     private MyProfileActions myProfileActions = new MyProfileActions();
+    private NavigationActions navigationActions = new NavigationActions();
 
     @BeforeMethod
     public void openPage() {
-        //TODO move url to params
-        //TODO Add step for navigation
-        //TODO Add step for assertion
-        SeleniumDriver.getDriver().get("http://localhost/php4dvd/?go=profile");
+        navigationActions.openMyProfilePage();
     }
 
     @Test

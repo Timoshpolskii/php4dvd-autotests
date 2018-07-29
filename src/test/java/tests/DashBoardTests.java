@@ -3,7 +3,7 @@ package tests;
 import actions.AddFilmActions;
 import actions.DashboardActions;
 import actions.FilmDetailsActions;
-import driver.SeleniumDriver;
+import actions.NavigationActions;
 import helper.AssertHelper;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
@@ -17,10 +17,11 @@ public class DashBoardTests extends BaseTest {
     private DashboardActions dashboardActions = new DashboardActions();
     private AddFilmActions addFilmActions = new AddFilmActions();
     private FilmDetailsActions filmDetailsActions = new FilmDetailsActions();
+    private NavigationActions navigationActions = new NavigationActions();
 
     @BeforeMethod
-    public void openPage() {
-        SeleniumDriver.getDriver().get("http://localhost/php4dvd/");
+    public void openHomeScreen() {
+        navigationActions.openHomePage();
     }
 
     @Test
