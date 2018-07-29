@@ -22,6 +22,7 @@ public class LoginActions implements HasWaiter {
         loginPage.btnSubmit.click();
     }
 
+    @Step("Get text from login alert")
     public String getTextFromLoginAlert() {
         return waiter(15).getText(loginPage.txtLoginAlert);
     }

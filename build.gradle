@@ -35,5 +35,6 @@ test {
     useTestNG() {
         testLogging.showStandardStreams = true
         String suiteName = 'src/test/resources/suite.xml'
+        suites suiteName
     }
 }
