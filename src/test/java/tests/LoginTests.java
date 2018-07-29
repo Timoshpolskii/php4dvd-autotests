@@ -30,8 +30,8 @@ public class LoginTests extends BaseTest {
         loginActions.enterPassword(password);
         loginActions.tapSubmitButton();
         dashboardActions.waitForPageToBeLoaded();
-//        boolean isAddButtonDisplayed = dashboardActions.isAddButtonDisplayed();
-        assertThat("Add button should be displayed", false);
+        boolean isAddButtonDisplayed = dashboardActions.isAddButtonDisplayed();
+        assertThat("Add button should be displayed", isAddButtonDisplayed);
     }
 
     @Test(dataProvider = "incorrect_user", dataProviderClass = UserCredentialsData.class)
@@ -42,7 +42,7 @@ public class LoginTests extends BaseTest {
         loginActions.tapSubmitButton();
         String actualAlertText = loginActions.getTextFromLoginAlert();
         String expectedAlertText = "Incorrect user name or password";
-        assertThat("Actual text from alert should match expected", actualAlertText, equalTo("123"));
+        assertThat("Actual text from alert should match expected", actualAlertText, equalTo(expectedAlertText));
     }
 
     @Test(dataProvider = "guest_user", dataProviderClass = UserCredentialsData.class)
