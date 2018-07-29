@@ -4,7 +4,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static driver.SeleniumDriver.getDriver;
+import static driver.DriverProvider.getDriver;
 
 public class Waiter {
     private long duration;

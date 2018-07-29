@@ -5,10 +5,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class SeleniumDriver {
+public class DriverProvider {
     private static WebDriver driver = null;
 
-    private SeleniumDriver(){}
+    private DriverProvider(){}
 
     public static synchronized WebDriver getDriver() {
         //TODO create capability for different browsers

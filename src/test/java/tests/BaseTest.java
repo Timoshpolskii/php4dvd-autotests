@@ -2,7 +2,8 @@ package tests;
 
 import actions.DashboardActions;
 import actions.LoginActions;
-import driver.SeleniumDriver;
+import actions.NavigationActions;
+import driver.DriverProvider;
 import org.openqa.selenium.Cookie;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -12,34 +13,34 @@ import org.testng.annotations.BeforeSuite;
 public class BaseTest {
     private LoginActions loginActions = new LoginActions();
     private DashboardActions dashboardActions = new DashboardActions();
+    private NavigationActions navigationActions = new NavigationActions();
     private static Cookie currentSession;
 
     @BeforeSuite()
     public void setUp() {
-        SeleniumDriver.getDriver().get("http://localhost/php4dvd/");
-
+        navigationActions.openHomePage();
         loginActions.waitForPageToBeLoaded();
         loginActions.enterUserName("admin");
         loginActions.enterPassword("admin");
         loginActions.tapSubmitButton();
         dashboardActions.waitForPageToBeLoaded();
 
-        currentSession = SeleniumDriver.getDriver().manage().getCookieNamed("PHPSESSID");
+        currentSession = DriverProvider.getDriver().manage().getCookieNamed("PHPSESSID");
     }
 
     @BeforeMethod()
     public void setSession() {
-        SeleniumDriver.getDriver().manage().addCookie(currentSession);
+        DriverProvider.getDriver().manage().addCookie(currentSession);
     }
 
     @AfterMethod
     public void deleteCookies() {
-        SeleniumDriver.getDriver().manage().deleteAllCookies();
+        DriverProvider.getDriver().manage().deleteAllCookies();
     }
 
     @AfterSuite
     public void tearDown() {
-        SeleniumDriver.getDriver().quit();
+        DriverProvider.getDriver().quit();
     }
 
     //TODO how to pass login/password in @before method???

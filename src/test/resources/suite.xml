@@ -1,5 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="All tests" verbose="1">
+    <listeners>
+        <listener class-name="listeners.TestListener" />
+    </listeners>
     <test name="All Tests">
         <classes>
             <class name="tests.LoginTests"/>
