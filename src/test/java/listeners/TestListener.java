@@ -24,10 +24,3 @@ public class TestListener extends TestListenerAdapter {
         return tr.getTestClass().getRealClass().getSimpleName() + "." + tr.getTestName();
     }
 }
-
-//    @Override
-//    public void onStart(ITestContext testContext) {
-//        super.onStart(testContext);
-//        Screenshot.takeScreenshot(testContext.getName());
-//    }
-//}
