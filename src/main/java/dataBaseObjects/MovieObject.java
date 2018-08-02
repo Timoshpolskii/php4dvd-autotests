@@ -9,6 +9,84 @@ public class MovieObject {
     private String nameorder;
     private String aka;
     private int year;
+    private int duration;
+    private double rating;
+    private String languages;
+    private String country;
+    private String genres;
+    private String director;
+    private String writer;
+    private String producer;
+    private String music;
+    private String cast;
+    private String taglines;
+    private String plotoutline;
+    private String plots;
+    private String format;
+    private int own;
+    private int seen;
+    private String notes;
+    private Date loaned;
+    private String loandate;
+    private String loanname;
+    private Date added;
+    private String trailer;
+    private String subtitles;
+    private String audio;
+    private String video;
+    private int tv;
+    private int seasons;
+    private int favourite;
+    private String mpaa;
+    private int pg;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getImdbid() {
+        return imdbid;
+    }
+
+    public void setImdbid(String imdbid) {
+        this.imdbid = imdbid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNameorder() {
+        return nameorder;
+    }
+
+    public void setNameorder(String nameorder) {
+        this.nameorder = nameorder;
+    }
+
+    public String getAka() {
+        return aka;
+    }
+
+    public void setAka(String aka) {
+        this.aka = aka;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 
     public int getDuration() {
         return duration;
@@ -249,35 +327,4 @@ public class MovieObject {
     public void setPg(int pg) {
         this.pg = pg;
     }
-
-    private int duration;
-    private double rating;
-    private String languages;
-    private String country;
-    private String genres;
-    private String director;
-    private String writer;
-    private String producer;
-    private String music;
-    private String cast;
-    private String taglines;
-    private String plotoutline;
-    private String plots;
-    private String format;
-    private int own;
-    private int seen;
-    private String notes;
-    private Date loaned;
-    private String loandate;
-    private String loanname;
-    private Date added;
-    private String trailer;
-    private String subtitles;
-    private String audio;
-    private String video;
-    private int tv;
-    private int seasons;
-    private int favourite;
-    private String mpaa;
-    private int pg;
 }
