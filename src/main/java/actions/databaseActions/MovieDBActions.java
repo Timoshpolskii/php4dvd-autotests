@@ -1,6 +1,6 @@
 package actions.databaseActions;
 
-import driver.DatabaseConnectionProvider;
+import driver.DataBase.DatabaseConnectionProvider;
 
 import java.sql.Connection;
 import java.sql.SQLException;

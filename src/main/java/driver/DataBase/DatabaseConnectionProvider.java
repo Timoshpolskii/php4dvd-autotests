@@ -1,4 +1,4 @@
-package driver;
+package driver.DataBase;
 
 import java.sql.*;
 
@@ -17,7 +17,7 @@ public class DatabaseConnectionProvider {
 
             try {
                 connection = DriverManager.getConnection(url, username, password);
-            } catch (SQLException e) {
+            } catch (SQLException | NullPointerException e) {
                 e.printStackTrace();
             }
         }

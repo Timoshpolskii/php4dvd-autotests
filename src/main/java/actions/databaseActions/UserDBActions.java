@@ -1,7 +1,7 @@
 package actions.databaseActions;
 
-import dataBaseObjects.UserObject;
-import driver.DatabaseConnectionProvider;
+import dataBaseObjects.UserDBObject;
+import driver.DataBase.DatabaseConnectionProvider;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,35 +13,35 @@ import java.util.List;
 public class UserDBActions {
     private Connection connection = DatabaseConnectionProvider.getConnection();
 
-    public List<UserObject> getListOfUsers() throws SQLException {
+    public List<UserDBObject> getListOfUsers() throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
 
-        List<UserObject> listOfUsers = new ArrayList<>();
+        List<UserDBObject> listOfUsers = new ArrayList<>();
         while (resultSet.next()) {
             listOfUsers.add(this.serializeUser(resultSet));
         }
         return listOfUsers;
     }
 
-    public UserObject getUserObjectByName(String name) throws SQLException {
-        List<UserObject> users = getListOfUsers();
+    public UserDBObject getUserObjectByName(String name) throws SQLException {
+        List<UserDBObject> users = getListOfUsers();
         return users.stream().findAny().filter(user -> user.getUserName().equals(name)).get();
     }
 
-    public void deleteUser(UserObject userObject) throws SQLException {
+    public void deleteUser(UserDBObject userDBObject) throws SQLException {
         Statement statement = connection.createStatement();
-        statement.execute("DELETE FROM users WHERE id = " + userObject.getId() + ";");
+        statement.execute("DELETE FROM users WHERE id = " + userDBObject.getId() + ";");
     }
 
-    private UserObject serializeUser(ResultSet resultSet) throws SQLException {
-        UserObject userObject = new UserObject();
-        userObject.setId(resultSet.getInt("id"));
-        userObject.setEmail(resultSet.getString("email"));
-        userObject.setUserName(resultSet.getString("username"));
-        userObject.setPassword(resultSet.getString("password"));
-        userObject.setPermission(resultSet.getInt("permission"));
-        userObject.setLastLogin(resultSet.getDate("lastlogin"));
-        return userObject;
+    private UserDBObject serializeUser(ResultSet resultSet) throws SQLException {
+        UserDBObject userDBObject = new UserDBObject();
+        userDBObject.setId(resultSet.getInt("id"));
+        userDBObject.setEmail(resultSet.getString("email"));
+        userDBObject.setUserName(resultSet.getString("username"));
+        userDBObject.setPassword(resultSet.getString("password"));
+        userDBObject.setPermission(resultSet.getInt("permission"));
+        userDBObject.setLastLogin(resultSet.getDate("lastlogin"));
+        return userDBObject;
     }
 }

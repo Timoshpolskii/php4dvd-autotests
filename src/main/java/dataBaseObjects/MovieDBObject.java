@@ -2,7 +2,7 @@ package dataBaseObjects;
 
 import java.sql.Date;
 
-public class MovieObject {
+public class MovieDBObject {
     private int id;
     private String imdbid;
     private String name;

@@ -2,7 +2,7 @@ package dataBaseObjects;
 
 import java.sql.Date;
 
-public class UserObject {
+public class UserDBObject {
     private int id;
     private String email;
     private String userName;
