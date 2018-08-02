@@ -44,9 +44,9 @@ public class BaseTest {
     }
 
     //TODO how to pass login/password in @before method???
-    //TODO create screens on test fail
     //TODO add logger
     //TODO investigate cucumber
     //TODO investigate jUnit
     //TODO move usercredentials in one file
+    //TODO move all URLs to property files
 }

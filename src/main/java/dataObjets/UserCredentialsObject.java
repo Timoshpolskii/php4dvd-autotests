@@ -2,7 +2,8 @@ package dataObjets;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserObject {
+public class UserCredentialsObject {
+    //TODO: move to property file
 
     @SerializedName("username")
     private String username;
