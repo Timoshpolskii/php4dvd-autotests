@@ -26,8 +26,8 @@ public class MovieDBObject {
     private int own;
     private int seen;
     private String notes;
-    private Date loaned;
-    private String loandate;
+    private int loaned;
+    private Date loandate;
     private String loanname;
     private Date added;
     private String trailer;
@@ -224,19 +224,19 @@ public class MovieDBObject {
         this.notes = notes;
     }
 
-    public Date getLoaned() {
+    public int getLoaned() {
         return loaned;
     }
 
-    public void setLoaned(Date loaned) {
+    public void setLoaned(int loaned) {
         this.loaned = loaned;
     }
 
-    public String getLoandate() {
+    public Date getLoandate() {
         return loandate;
     }
 
-    public void setLoandate(String loandate) {
+    public void setLoandate(Date loandate) {
         this.loandate = loandate;
     }
 
