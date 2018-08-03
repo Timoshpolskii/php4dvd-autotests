@@ -5,7 +5,7 @@ import org.testng.annotations.DataProvider;
 
 import java.util.Properties;
 
-public class UserCredentialsData {
+public class UserCredentialsDataProvider {
     private String USER_CREDENTIALS_FILEPATH = "/src/test/resources/fixtures/user_credentials.properties";
     private Properties properties = PropertiesReader.readFromFile(USER_CREDENTIALS_FILEPATH);
 

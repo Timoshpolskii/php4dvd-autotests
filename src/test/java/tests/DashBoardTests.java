@@ -9,7 +9,7 @@ import helper.AssertHelper;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import testData.MovieInfoData;
+import testData.MovieInfoDataProvider;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -35,7 +35,7 @@ public class DashBoardTests extends BaseTest {
         navigationActions.openHomePage();
     }
 
-    @Test(dataProvider = "correct_movie", dataProviderClass = MovieInfoData.class)
+    @Test(dataProvider = "correct_movie", dataProviderClass = MovieInfoDataProvider.class)
     public void checkInfoOfNewAddedMovie(Properties properties) {
         String expectedMovieName = getUniqueNameOfMovie();
         int expectedMovieYear = Integer.valueOf(properties.getProperty("year"));
