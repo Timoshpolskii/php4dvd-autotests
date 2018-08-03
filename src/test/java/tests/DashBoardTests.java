@@ -16,6 +16,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.empty;
+
 public class DashBoardTests extends BaseTest {
 
     private DashboardActions dashboardActions = new DashboardActions();
@@ -56,7 +60,8 @@ public class DashBoardTests extends BaseTest {
         actualMovieInfo.put("language", movieDetailsActions.getMovieLanguage());
         actualMovieInfo.put("personal notes", movieDetailsActions.getMoviePersonalNotes());
         
-        AssertHelper.getDifference(actualMovieInfo, expectedMovieInfo);
+        List<String> diff = AssertHelper.getDifference(actualMovieInfo, expectedMovieInfo);
+        assertThat("List of differences should be empty", diff, is(empty()));
     }
 
     @AfterTest
