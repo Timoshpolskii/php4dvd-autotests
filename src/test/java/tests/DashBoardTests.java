@@ -9,14 +9,12 @@ import helper.AssertHelper;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import testData.MovieInfoData;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DashBoardTests extends BaseTest {
 
@@ -33,13 +31,12 @@ public class DashBoardTests extends BaseTest {
         navigationActions.openHomePage();
     }
 
-    @Test
-    public void checkInfoOfNewAddedMovie() {
-        //TODO save movie info in property file
+    @Test(dataProvider = "correct_movie", dataProviderClass = MovieInfoData.class)
+    public void checkInfoOfNewAddedMovie(Properties properties) {
         String expectedMovieName = getUniqueNameOfMovie();
-        int expectedMovieYear = 1991;
-        String expectedMovieLanguage = "English1";
-        String expectedMoviePersonalNotes = "Movie personal notes1";
+        int expectedMovieYear = Integer.valueOf(properties.getProperty("year"));
+        String expectedMovieLanguage = properties.getProperty("language");
+        String expectedMoviePersonalNotes = properties.getProperty("personal_notes");
 
         dashboardActions.pressAddButton();
         addMovieActions.waitForPageToBeLoaded();

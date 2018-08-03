@@ -1,37 +1,26 @@
 package testData;
 
-import dataObjets.UserCredentialsObject;
-import helper.TestDataReader;
+import helper.PropertiesReader;
 import org.testng.annotations.DataProvider;
 
-import java.io.FileNotFoundException;
+import java.util.Properties;
 
 public class UserCredentialsData {
-    private String currentPath = System.getProperty("user.dir");
+    private String USER_CREDENTIALS_FILEPATH = "/src/test/resources/fixtures/user_credentials.properties";
+    private Properties properties = PropertiesReader.readFromFile(USER_CREDENTIALS_FILEPATH);
 
     @DataProvider(name = "admin_user")
-    public Object[][] adminData() throws FileNotFoundException {
-
-        String ADMIN_USER_FILEPATH = currentPath + "/src/test/resources/fixtures/admin_user_credentials.json";
-        TestDataReader<UserCredentialsObject> userCredentials = new TestDataReader(ADMIN_USER_FILEPATH, UserCredentialsObject.class);
-        UserCredentialsObject user = userCredentials.read();
-        return new Object[][]{{user.getUsername(), user.getPassword()}};
+    public Object[][] adminData() {
+        return new Object[][]{{properties.getProperty("admin_username"), properties.getProperty("admin_password")}};
     }
 
     @DataProvider(name = "guest_user")
-    public Object[][]  guestData() throws FileNotFoundException {
-        String GUEST_USER_FILEPATH = currentPath +"/src/test/resources/fixtures/guest_user_credentials.json";
-        TestDataReader<UserCredentialsObject> userCredentials = new TestDataReader(GUEST_USER_FILEPATH, UserCredentialsObject.class);
-        UserCredentialsObject user = userCredentials.read();
-        return new Object[][]{{user.getUsername(), user.getPassword()}};
+    public Object[][]  guestData() {
+        return new Object[][]{{properties.getProperty("guest_username"), properties.getProperty("guest_password")}};
     }
 
     @DataProvider(name = "incorrect_user")
-    public Object[][]  incorrectUserData() throws FileNotFoundException {
-        String INCORRECT_USER_FILEPATH = currentPath + "/src/test/resources/fixtures/incorrect_user_credentials.json";
-        TestDataReader<UserCredentialsObject> userCredentials = new TestDataReader(INCORRECT_USER_FILEPATH, UserCredentialsObject.class);
-        UserCredentialsObject user = userCredentials.read();
-        return new Object[][]{{user.getUsername(), user.getPassword()}};
+    public Object[][]  incorrectUserData() {
+        return new Object[][]{{properties.getProperty("incorrect_username"), properties.getProperty("incorrect_password")}};
     }
-
 }
