@@ -10,40 +10,20 @@ public class PropertiesReader {
 
     public static Properties readFromFile(String filePath) {
         Properties prop = new Properties();
-        InputStream input = null;
-        try {
-            input = new FileInputStream(currentPath + filePath);
+        try (InputStream input = new FileInputStream(currentPath + filePath)) {
             prop.load(input);
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return prop;
     }
 
     public static String readPropertyFromFile(String filePath, String key) {
         Properties prop = new Properties();
-        InputStream input = null;
-        try {
-            input = new FileInputStream(currentPath + filePath);
+        try (InputStream input = new FileInputStream(currentPath + filePath)) {
             prop.load(input);
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return prop.getProperty(key);
     }

@@ -3,6 +3,7 @@ package tests;
 import actions.DashboardActions;
 import actions.LoginActions;
 import actions.NavigationActions;
+import driver.DataBase.DatabaseConnectionProvider;
 import driver.DriverProvider;
 import helper.PropertiesReader;
 import org.openqa.selenium.Cookie;
@@ -10,6 +11,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+
+import java.sql.SQLException;
 
 public class BaseTest {
     private LoginActions loginActions = new LoginActions();
@@ -44,8 +47,9 @@ public class BaseTest {
     }
 
     @AfterSuite
-    public void tearDown() {
+    public void tearDown() throws SQLException {
         DriverProvider.getDriver().quit();
+        DatabaseConnectionProvider.getConnection().close();
     }
 
     //TODO add logger
