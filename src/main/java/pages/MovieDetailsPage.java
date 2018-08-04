@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class FilmDetailsPage extends BasePage {
+public class MovieDetailsPage extends BasePage {
 
     @FindBy(xpath = "//i[@title='Back']")
     public WebElement btnBack;
@@ -15,7 +15,7 @@ public class FilmDetailsPage extends BasePage {
     public WebElement btnRemove;
 
     @FindBy(xpath = "//section[@class='content-header']/h1")
-    public WebElement txtFilmTitle;
+    public WebElement txtMovieTitle;
 
     @FindBy(className = "languages")
     public WebElement txtLanguage;

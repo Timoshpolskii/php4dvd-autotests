@@ -6,5 +6,9 @@ public interface HasWaiter {
         return new Waiter(duration);
     }
 
+    default Waiter waiter() {
+        return new Waiter();
+    }
+
     boolean waitForPageToBeLoaded();
 }

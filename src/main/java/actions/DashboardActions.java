@@ -1,8 +1,12 @@
 package actions;
 
 import driver.HasWaiter;
+import org.openqa.selenium.WebElement;
 import pages.DashboardPage;
 import ru.yandex.qatools.allure.annotations.Step;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 public class DashboardActions implements HasWaiter {
     private DashboardPage dashboardPage = new DashboardPage();
@@ -27,5 +31,24 @@ public class DashboardActions implements HasWaiter {
 
     public boolean isAddButtonAbsent() {
         return waiter(5).waitAbsent(dashboardPage.btnAdd);
+    }
+
+    public WebElement getMovieContainerByMovieName(String name) {
+        for (WebElement movieContainer : dashboardPage.movieContainers) {
+            if (getMovieNameFromMovieContainer(movieContainer).equals(name)) {
+                return movieContainer;
+            }
+        }
+        return null;
+    }
+
+    public String getMovieNameFromMovieContainer(WebElement movieContainer) {
+        return waiter().getText(dashboardPage.txtMovieName, movieContainer);
+    }
+
+    public void openMovieDetailsByMovieName(String name) {
+        WebElement movieContainer = getMovieContainerByMovieName(name);
+        assertThat("Movie with name [" + name + "] should be found to proceed", movieContainer, notNullValue());
+        waiter().click(dashboardPage.movieImage, movieContainer);
     }
 }

@@ -4,6 +4,7 @@ import actions.DashboardActions;
 import actions.LoginActions;
 import actions.NavigationActions;
 import driver.DriverProvider;
+import helper.PropertiesReader;
 import org.openqa.selenium.Cookie;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -18,10 +19,14 @@ public class BaseTest {
 
     @BeforeSuite()
     public void setUp() {
+        String USER_CREDENTIALS_FILEPATH = "/src/test/resources/fixtures/user_credentials.properties";
+        String adminUserName = PropertiesReader.readPropertyFromFile(USER_CREDENTIALS_FILEPATH, "admin_username");
+        String adminUserPassword = PropertiesReader.readPropertyFromFile(USER_CREDENTIALS_FILEPATH, "admin_password");
+
         navigationActions.openHomePage();
         loginActions.waitForPageToBeLoaded();
-        loginActions.enterUserName("admin");
-        loginActions.enterPassword("admin");
+        loginActions.enterUserName(adminUserName);
+        loginActions.enterPassword(adminUserPassword);
         loginActions.tapSubmitButton();
         dashboardActions.waitForPageToBeLoaded();
 
@@ -43,10 +48,7 @@ public class BaseTest {
         DriverProvider.getDriver().quit();
     }
 
-    //TODO how to pass login/password in @before method???
-    //TODO create screens on test fail
     //TODO add logger
     //TODO investigate cucumber
     //TODO investigate jUnit
-    //TODO move usercredentials in one file
 }

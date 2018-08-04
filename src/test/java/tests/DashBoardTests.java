@@ -1,60 +1,79 @@
 package tests;
 
-import actions.AddFilmActions;
+import actions.AddMovieActions;
 import actions.DashboardActions;
-import actions.FilmDetailsActions;
+import actions.MovieDetailsActions;
 import actions.NavigationActions;
+import actions.databaseActions.MovieDBActions;
 import helper.AssertHelper;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import testData.MovieInfoDataProvider;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.empty;
 
 public class DashBoardTests extends BaseTest {
 
     private DashboardActions dashboardActions = new DashboardActions();
-    private AddFilmActions addFilmActions = new AddFilmActions();
-    private FilmDetailsActions filmDetailsActions = new FilmDetailsActions();
+    private AddMovieActions addMovieActions = new AddMovieActions();
+    private MovieDetailsActions movieDetailsActions = new MovieDetailsActions();
     private NavigationActions navigationActions = new NavigationActions();
+    private MovieDBActions movieDBActions = new MovieDBActions();
+
+    private List<String> testMovieNames = new ArrayList<>();
 
     @BeforeMethod
     public void openHomeScreen() {
         navigationActions.openHomePage();
     }
 
-    @Test
-    public void checkInfoOfNewAddedFilm() {
-        //TODO save film info in FILM object
-        String expectedFilmName = "New Film Title1";
-        int expectedFilmYear = 1991;
-        String expectedFilmLanguage = "English1";
-        String expectedFilmPersonalNotes = "Film personal notes1";
+    @Test(dataProvider = "correct_movie", dataProviderClass = MovieInfoDataProvider.class)
+    public void checkInfoOfNewAddedMovie(Properties properties) {
+        String expectedMovieName = getUniqueNameOfMovie();
+        int expectedMovieYear = Integer.valueOf(properties.getProperty("year"));
+        String expectedMovieLanguage = properties.getProperty("language");
+        String expectedMoviePersonalNotes = properties.getProperty("personal_notes");
 
         dashboardActions.pressAddButton();
-        addFilmActions.waitForPageToBeLoaded();
-        addFilmActions.addNameOfFilm(expectedFilmName);
-        addFilmActions.addYearOfFilm(expectedFilmYear);
-        addFilmActions.addPersonalNotesOfFilm(expectedFilmPersonalNotes);
-        addFilmActions.addLanguageOfFilm(expectedFilmLanguage);
-        addFilmActions.saveFilm();
+        addMovieActions.waitForPageToBeLoaded();
+        addMovieActions.addNameOfMovie(expectedMovieName);
+        addMovieActions.addYearOfMovie(expectedMovieYear);
+        addMovieActions.addPersonalNotesOfMovie(expectedMoviePersonalNotes);
+        addMovieActions.addLanguageOfMovie(expectedMovieLanguage);
+        addMovieActions.saveMovie();
 
-        Map<String, String> expectedFilmInfo = new HashMap<>();
-        expectedFilmInfo.put("title", expectedFilmName + " (" + expectedFilmYear + ")");
-        expectedFilmInfo.put("language", "Languages: " + expectedFilmLanguage);
-        expectedFilmInfo.put("personal notes", expectedFilmPersonalNotes);
+        Map<String, String> expectedMovieInfo = new HashMap<>();
+        expectedMovieInfo.put("title", expectedMovieName + " (" + expectedMovieYear + ")");
+        expectedMovieInfo.put("language", "Languages: " + expectedMovieLanguage);
+        expectedMovieInfo.put("personal notes", expectedMoviePersonalNotes);
 
-        Map<String, String> actualFilmInfo = new HashMap<>();
-        actualFilmInfo.put("title", filmDetailsActions.getFilmTitle());
-        actualFilmInfo.put("language", filmDetailsActions.getFilmLanguage());
-        actualFilmInfo.put("personal notes", filmDetailsActions.getFilmPersonalNotes());
+        Map<String, String> actualMovieInfo = new HashMap<>();
+        actualMovieInfo.put("title", movieDetailsActions.getMovieTitle());
+        actualMovieInfo.put("language", movieDetailsActions.getMovieLanguage());
+        actualMovieInfo.put("personal notes", movieDetailsActions.getMoviePersonalNotes());
         
-        AssertHelper.getDifference(actualFilmInfo, expectedFilmInfo);
+        List<String> diff = AssertHelper.getDifference(actualMovieInfo, expectedMovieInfo);
+        assertThat("List of differences should be empty", diff, is(empty()));
     }
 
-    @AfterClass
-    public void deleteTestData() {
-        //TODO implement this logic
+    @AfterTest
+    public void deleteTestData() throws SQLException {
+        movieDBActions.deleteListOfMoviesByName(testMovieNames);
+    }
+
+    private String getUniqueNameOfMovie() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String uniqueName = "New Movie " + dtf.format(now);
+        testMovieNames.add(uniqueName);
+        return uniqueName;
     }
 }

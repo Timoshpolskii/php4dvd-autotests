@@ -7,12 +7,12 @@ import com.google.gson.stream.JsonReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class TestDataReader<T> {
+public class JsonDataReader<T> {
     private String filePath;
     private Gson gson;
     private Class<T> testDataClass;
 
-    public TestDataReader(String filePath, Class<T> testDataClass) {
+    public JsonDataReader(String filePath, Class<T> testDataClass) {
         this.filePath = filePath;
         this.testDataClass = testDataClass;
         GsonBuilder builder = new GsonBuilder();
