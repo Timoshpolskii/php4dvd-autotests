@@ -1,6 +1,6 @@
 package actions;
 
-import driver.HasWaiter;
+import helper.HasWaiter;
 import pages.AddMoviePage;
 import ru.yandex.qatools.allure.annotations.Step;
 

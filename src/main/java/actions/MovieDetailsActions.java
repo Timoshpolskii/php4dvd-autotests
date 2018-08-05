@@ -1,7 +1,7 @@
 package actions;
 
 import pages.MovieDetailsPage;
-import driver.HasWaiter;
+import helper.HasWaiter;
 import ru.yandex.qatools.allure.annotations.Step;
 
 public class MovieDetailsActions implements HasWaiter {

@@ -1,6 +1,6 @@
 package actions;
 
-import driver.HasWaiter;
+import helper.HasWaiter;
 import org.openqa.selenium.WebElement;
 import pages.DashboardPage;
 import ru.yandex.qatools.allure.annotations.Step;

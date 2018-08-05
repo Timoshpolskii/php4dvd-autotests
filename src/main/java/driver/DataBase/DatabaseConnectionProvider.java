@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class DatabaseConnectionProvider {
     private static Connection connection = null;
-    private static String DATABASE_CREDENTIALS_FILEPATH = "/src/main/resources/database_credentials.properties";
+    private static String DATABASE_CREDENTIALS_FILEPATH = "/src/test/resources/database_credentials.properties";
     private static Properties properties = PropertiesReader.readFromFile(DATABASE_CREDENTIALS_FILEPATH);
 
     private DatabaseConnectionProvider() {}

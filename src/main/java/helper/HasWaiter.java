@@ -1,4 +1,6 @@
-package driver;
+package helper;
+
+import driver.Waiter;
 
 public interface HasWaiter {
 

@@ -12,11 +12,11 @@ public class Waiter {
     private long duration;
     private WebDriverWait wait = new WebDriverWait(getDriver(), duration);
 
-    Waiter(long duration) {
+    public Waiter(long duration) {
         this.duration = duration;
     }
 
-    Waiter() {
+    public Waiter() {
         this.duration = 0;
     }
 

@@ -7,7 +7,7 @@ import ru.yandex.qatools.allure.annotations.Step;
 import java.util.Properties;
 
 public class NavigationActions {
-    private String NAVIGATION_URLS_FILEPATH = "/src/main/resources/navigation_URLs.properties";
+    private String NAVIGATION_URLS_FILEPATH = "/src/test/resources/navigation_URLs.properties";
     private Properties properties = PropertiesReader.readFromFile(NAVIGATION_URLS_FILEPATH);
 
     private String BASE_URL = properties.getProperty("base_URL");
