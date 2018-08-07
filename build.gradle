@@ -26,14 +26,13 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.11.0'
     compile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
     testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
 }
 
 test {
-    beforeTest {
-        descriptor -> logger.lifecycle("Running test:" + descriptor)
-    }
     useTestNG() {
         testLogging.showStandardStreams = true
         String suiteName = 'src/test/resources/suite.xml'

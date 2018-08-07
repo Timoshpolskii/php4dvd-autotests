@@ -2,6 +2,8 @@ package actions.databaseActions;
 
 import dataBaseObjects.UserDBObject;
 import driver.DataBase.DatabaseConnectionProvider;
+import helper.HasLogger;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,12 +12,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDBActions {
+public class UserDBActions implements HasLogger {
     private Connection connection = DatabaseConnectionProvider.getConnection();
+    private Logger log = getLogger();
 
     public List<UserDBObject> getListOfUsers() throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
+        log.debug("Select list of users from database");
 
         List<UserDBObject> listOfUsers = new ArrayList<>();
         while (resultSet.next()) {
@@ -32,6 +36,8 @@ public class UserDBActions {
     public void deleteUser(UserDBObject userDBObject) throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("DELETE FROM users WHERE id = " + userDBObject.getId() + ";");
+        log.debug("Delete user with name [" + userDBObject.getUserName() +
+                "] and ID [" + userDBObject.getId() + "] from database");
     }
 
     private UserDBObject serializeUser(ResultSet resultSet) throws SQLException {

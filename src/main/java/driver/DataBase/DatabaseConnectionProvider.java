@@ -1,8 +1,11 @@
 package driver.DataBase;
 
 import helper.PropertiesReader;
+import org.apache.logging.log4j.LogManager;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnectionProvider {
@@ -14,15 +17,16 @@ public class DatabaseConnectionProvider {
 
     public static synchronized Connection getConnection() {
         if (connection == null) {
-            //TODO add logger
             String url = properties.getProperty("url");
             String username = properties.getProperty("username");
             String password = properties.getProperty("password");
 
             try {
                 connection = DriverManager.getConnection(url, username, password);
+                LogManager.getLogger().debug("Success connect to database");
             } catch (SQLException | NullPointerException e) {
                 e.printStackTrace();
+                LogManager.getLogger().info("Failed to connect to database");
             }
         }
         return connection;

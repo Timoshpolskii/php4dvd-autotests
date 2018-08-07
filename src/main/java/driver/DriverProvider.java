@@ -1,5 +1,6 @@
 package driver;
 
+import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -18,6 +19,7 @@ public class DriverProvider {
             driver = new ChromeDriver();
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            LogManager.getLogger().info("Success create WebDriver");
         }
         return driver;
     }

@@ -2,6 +2,8 @@ package actions.databaseActions;
 
 import dataBaseObjects.MovieDBObject;
 import driver.DataBase.DatabaseConnectionProvider;
+import helper.HasLogger;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,23 +12,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieDBActions {
+public class MovieDBActions implements HasLogger {
     private Connection connection = DatabaseConnectionProvider.getConnection();
+    private Logger log = getLogger();
 
     public void deleteAllMovies() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("DELETE FROM movies;");
+        log.debug("All movies are deleted from database");
     }
 
     public void deleteListOfMoviesByName(List<String> movieNames) throws SQLException {
         Statement statement = connection.createStatement();
         String listOfMoviesQuery = this.getMoviesQueryFromListOfMovies(movieNames);
         statement.execute("DELETE FROM movies WHERE name IN (" + listOfMoviesQuery + ");");
+        log.debug("List of movies is deleted from database: [" + movieNames +"]");
     }
 
     public List<MovieDBObject> getListOfMovies() throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM movies;");
+        log.debug("Select list of movies from database");
 
         List<MovieDBObject> listOfUsers = new ArrayList<>();
         while (resultSet.next()) {
