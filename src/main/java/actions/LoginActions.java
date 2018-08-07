@@ -9,17 +9,17 @@ public class LoginActions implements HasWaiter {
 
     @Step("Enter username [{0}]")
     public void enterUserName(String userName) {
-        loginPage.fldUserName.sendKeys(userName);
+        waiter().sendKeys(loginPage.fldUserName, userName);
     }
 
     @Step("Enter password [{0}]")
     public void enterPassword(String password) {
-        loginPage.fldPassword.sendKeys(password);
+        waiter().sendKeys(loginPage.fldPassword, password);
     }
 
     @Step("Tap submit button")
     public void tapSubmitButton() {
-        loginPage.btnSubmit.click();
+        waiter().click(loginPage.btnSubmit);
     }
 
     @Step("Get text from login alert")

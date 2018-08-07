@@ -16,27 +16,27 @@ public class AddMovieActions implements HasWaiter {
 
     @Step("Add name [{0}]of movie")
     public void addNameOfMovie(String title) {
-        addMoviePage.fldTitle.sendKeys(title);
+        waiter().sendKeys(addMoviePage.fldTitle, title);
     }
 
     @Step("Add year [{0}] of movie")
     public void addYearOfMovie(int year) {
-        addMoviePage.fldYear.sendKeys(String.valueOf(year));
+        waiter().sendKeys(addMoviePage.fldYear, String.valueOf(year));
     }
 
     @Step("Add personal notes [{0}] of movie")
     public void addPersonalNotesOfMovie(String text) {
-        addMoviePage.fldPersonalNotes.sendKeys(text);
+        waiter().sendKeys(addMoviePage.fldPersonalNotes, text);
     }
 
     @Step("Add language [{0}] of movie")
     public void addLanguageOfMovie(String text) {
-        addMoviePage.fldLanguage.sendKeys(text);
+        waiter().sendKeys(addMoviePage.fldLanguage, text);
     }
 
     @Step("Save movie")
     public void saveMovie() {
-        addMoviePage.btnSave.click();
+        waiter().click(addMoviePage.btnSave);
         movieDetailsActions.waitForPageToBeLoaded();
     }
 }

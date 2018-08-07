@@ -14,22 +14,22 @@ public class MovieDetailsActions implements HasWaiter {
 
     @Step("Get movie title from UI")
     public String getMovieTitle() {
-        return movieDetailsPage.txtMovieTitle.getText();
+        return waiter().getText(movieDetailsPage.txtMovieTitle);
     }
 
     @Step("Get movie language from UI")
     public String getMovieLanguage() {
-        return movieDetailsPage.txtLanguage.getText();
+        return waiter().getText(movieDetailsPage.txtLanguage);
     }
 
     @Step("Get movie personal notes from UI")
     public String getMoviePersonalNotes() {
-        return movieDetailsPage.txtPersonalNotes.getText();
+        return waiter().getText(movieDetailsPage.txtPersonalNotes);
     }
 
     @Step("Press 'Remove' button")
     public void pressRemoveButton() {
-        movieDetailsPage.btnRemove.click();
+        waiter().click(movieDetailsPage.btnRemove);
     }
 
     @Step("Accept movie removal alert")

@@ -65,4 +65,5 @@ public class BaseTest implements HasLogger {
     //TODO investigate cucumber
     //TODO investigate jUnit
     //TODO run jenkins after new commit
+    //TODO turn off xampp and investigate browser close
 }

@@ -20,34 +20,32 @@ public class Waiter implements HasLogger {
     }
 
     public Waiter() {
-        this.duration = 0;
     }
 
     public void sendKeys(WebElement element, String text) {
-        //TODO use these methods for all actions
         wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
-        element.sendKeys(text);
         log.debug("Send text [" + text + "] to element with locator" + getLocatorFromElement(element));
+        element.sendKeys(text);
     }
 
     public void sendKeys(By by, WebElement parentElement, String text) {
         wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
-        parentElement.findElement(by).sendKeys(text);
         log.debug("Send text [" + text + "] to element with locator [" + by.toString()
                 + "] and parent element " + getLocatorFromElement(parentElement));
+        parentElement.findElement(by).sendKeys(text);
     }
 
     public void click(WebElement element) {
         wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
-        element.click();
         log.debug("Click element with locator " + getLocatorFromElement(element));
+        element.click();
     }
 
     public void click(By by, WebElement parentElement) {
         wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
-        parentElement.findElement(by).click();
         log.debug("Click element with locator [" + by.toString()
                 + "] and parent element " + getLocatorFromElement(parentElement));
+        parentElement.findElement(by).click();
     }
 
     public boolean waitDisplayed(WebElement element) {
@@ -62,10 +60,12 @@ public class Waiter implements HasLogger {
     }
 
     public boolean waitAbsent(WebElement element) {
-        //TODO investigate driver implicit wait = 0 so tests will be fast
         try {
+            DriverProvider.setCustomDriverImplicitlyWait(0);
             log.debug("Wait for element with locator " + getLocatorFromElement(element) + " to be absent");
-            return wait.until(CustomExpectedConditions.elementToBeAbsent(element));
+            boolean isAbsent = wait.until(CustomExpectedConditions.elementToBeAbsent(element));
+            DriverProvider.setDefaultImplicitlyWait();
+            return isAbsent;
         }
         catch (TimeoutException e) {
             log.info("Failed to wait for element to be absent " + getLocatorFromElement(element));
@@ -102,8 +102,8 @@ public class Waiter implements HasLogger {
     }
 
     public void acceptAlert() {
-        wait.until(ExpectedConditions.alertIsPresent()).accept();
         log.info("Accept browser alert");
+        wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
 
     private String getLocatorFromElement(WebElement element) {

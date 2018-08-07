@@ -18,11 +18,11 @@ public class DashboardActions implements HasWaiter {
 
     @Step("Press add button")
     public void pressAddButton() {
-        dashboardPage.btnAdd.click();
+        waiter().click(dashboardPage.btnAdd);
     }
 
     public boolean isSettingsButtonDisplayed() {
-        return dashboardPage.btnSettings.isDisplayed();
+        return waiter().waitDisplayed(dashboardPage.btnSettings);
     }
 
     public boolean isAddButtonDisplayed() {

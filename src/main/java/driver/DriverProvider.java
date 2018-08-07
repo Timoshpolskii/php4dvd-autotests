@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DriverProvider {
     private static WebDriver driver = null;
+    private static final long DEFAULT_IMPLICITLY_WAIT = 5;
 
     private DriverProvider(){}
 
@@ -18,9 +19,17 @@ public class DriverProvider {
             System.setProperty("webdriver.chrome.driver", projectPath + "/src/main/resources/chromedriver");
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-            LogManager.getLogger().info("Success create WebDriver");
+            setDefaultImplicitlyWait();
+            LogManager.getLogger().info("SUCCESS create WebDriver");
         }
         return driver;
+    }
+
+    public static void setCustomDriverImplicitlyWait(long seconds) {
+        driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+    }
+
+    public static void setDefaultImplicitlyWait() {
+        driver.manage().timeouts().implicitlyWait(DEFAULT_IMPLICITLY_WAIT, TimeUnit.SECONDS);
     }
 }
