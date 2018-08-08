@@ -1,6 +1,7 @@
 package driver;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class DriverProvider {
     private static WebDriver driver = null;
     private static final long DEFAULT_IMPLICITLY_WAIT = 5;
+    private static Logger log = LogManager.getLogger();
 
     private DriverProvider(){}
 
@@ -26,10 +28,21 @@ public class DriverProvider {
     }
 
     public static void setCustomDriverImplicitlyWait(long seconds) {
-        driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+        if (driver != null) {
+            driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
+        }
     }
 
     public static void setDefaultImplicitlyWait() {
-        driver.manage().timeouts().implicitlyWait(DEFAULT_IMPLICITLY_WAIT, TimeUnit.SECONDS);
+        if (driver != null) {
+            driver.manage().timeouts().implicitlyWait(DEFAULT_IMPLICITLY_WAIT, TimeUnit.SECONDS);
+        }
+    }
+
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            log.info("Closed Selenium driver");
+        }
     }
 }

@@ -42,8 +42,14 @@ public class BaseTest implements HasLogger {
 
     @BeforeMethod()
     public void setSession() {
-        DriverProvider.getDriver().manage().addCookie(currentSession);
-        log.debug("Saved cookie of current session to browser");
+        try {
+            DriverProvider.getDriver().manage().addCookie(currentSession);
+            log.debug("Save cookie of current session to browser");
+        }
+        catch (NullPointerException e ) {
+            log.info("FAILED to save cookie of current session to browser");
+        }
+
         log.info("\n"
                 + "___________________________________________________________________________________________" + "\n");
     }
@@ -56,14 +62,11 @@ public class BaseTest implements HasLogger {
 
     @AfterSuite
     public void tearDown() throws SQLException {
-        DriverProvider.getDriver().quit();
-        log.info("Closed Selenium driver");
-        DatabaseConnectionProvider.getConnection().close();
-        log.debug("Closed connection to database");
+        DriverProvider.quitDriver();
+        DatabaseConnectionProvider.closeConnection();
     }
 
     //TODO investigate cucumber
     //TODO investigate jUnit
     //TODO run jenkins after new commit
-    //TODO turn off xampp and investigate browser close
 }

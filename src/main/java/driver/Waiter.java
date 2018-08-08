@@ -23,29 +23,56 @@ public class Waiter implements HasLogger {
     }
 
     public void sendKeys(WebElement element, String text) {
-        wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
-        log.debug("Send text [" + text + "] to element with locator" + getLocatorFromElement(element));
-        element.sendKeys(text);
+        try {
+            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
+            log.debug("Send text [" + text + "] to element with locator" + getLocatorFromElement(element));
+            element.sendKeys(text);
+        }
+        catch (TimeoutException e) {
+            log.info("FAILED to wait for element to be displayed" + getLocatorFromElement(element));
+            e.printStackTrace();
+        }
     }
 
     public void sendKeys(By by, WebElement parentElement, String text) {
-        wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
-        log.debug("Send text [" + text + "] to element with locator [" + by.toString()
-                + "] and parent element " + getLocatorFromElement(parentElement));
-        parentElement.findElement(by).sendKeys(text);
+        try {
+            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
+            log.debug("Send text [" + text + "] to element with locator [" + by.toString()
+                    + "] and parent element " + getLocatorFromElement(parentElement));
+            parentElement.findElement(by).sendKeys(text);
+        }
+        catch (TimeoutException e) {
+            log.info("FAILED to wait for element with locator :"
+                    + by.toString() + "and parent element" + getLocatorFromElement(parentElement) + "to be displayed" );
+            e.printStackTrace();
+        }
     }
 
     public void click(WebElement element) {
-        wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
-        log.debug("Click element with locator " + getLocatorFromElement(element));
-        element.click();
+        try {
+            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
+            log.debug("Click element with locator " + getLocatorFromElement(element));
+            element.click();
+        }
+        catch (TimeoutException e) {
+            log.info("FAILED to wait for element to be displayed" + getLocatorFromElement(element));
+            e.printStackTrace();
+        }
+
     }
 
     public void click(By by, WebElement parentElement) {
-        wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
-        log.debug("Click element with locator [" + by.toString()
-                + "] and parent element " + getLocatorFromElement(parentElement));
-        parentElement.findElement(by).click();
+        try {
+            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
+            log.debug("Click element with locator [" + by.toString()
+                    + "] and parent element " + getLocatorFromElement(parentElement));
+            parentElement.findElement(by).click();
+        }
+        catch (TimeoutException e) {
+            log.info("FAILED to wait for element with locator :"
+                    + by.toString() + "and parent element" + getLocatorFromElement(parentElement) + "to be displayed" );
+            e.printStackTrace();
+        }
     }
 
     public boolean waitDisplayed(WebElement element) {
@@ -53,8 +80,9 @@ public class Waiter implements HasLogger {
             log.debug("Wait for element with locator " + getLocatorFromElement(element) + " to be displayed");
             return wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
         }
-        catch (TimeoutException ignored) {
-            log.info("Failed to wait for element to be displayed" + getLocatorFromElement(element));
+        catch (TimeoutException e) {
+            log.info("FAILED to wait for element to be displayed" + getLocatorFromElement(element));
+            e.printStackTrace();
             return false;
         }
     }
@@ -68,7 +96,8 @@ public class Waiter implements HasLogger {
             return isAbsent;
         }
         catch (TimeoutException e) {
-            log.info("Failed to wait for element to be absent " + getLocatorFromElement(element));
+            log.info("FAILED to wait for element to be absent " + getLocatorFromElement(element));
+            e.printStackTrace();
             return false;
         }
 
@@ -82,7 +111,8 @@ public class Waiter implements HasLogger {
 
         }
         catch (TimeoutException e) {
-            log.info("Not able to get text from element with locator:" + getLocatorFromElement(element));
+            log.info("FAILED to get text from element with locator:" + getLocatorFromElement(element));
+            e.printStackTrace();
             return null;
         }
     }
@@ -95,28 +125,39 @@ public class Waiter implements HasLogger {
             return parentElement.findElement(by).getText();
         }
         catch (TimeoutException e) {
-            log.info("Not able to get text from element with locator ["
+            log.info("FAILED to get text from element with locator ["
                     + by.toString() + "] and parent element " + getLocatorFromElement(parentElement));
+            e.printStackTrace();
             return null;
         }
     }
 
     public void acceptAlert() {
-        log.info("Accept browser alert");
-        wait.until(ExpectedConditions.alertIsPresent()).accept();
+        try {
+            log.info("Accept browser alert");
+            wait.until(ExpectedConditions.alertIsPresent()).accept();
+        }
+        catch (TimeoutException e) {
+            log.info("FAILED to wat for alert to be displayed");
+            e.printStackTrace();
+        }
     }
 
     private String getLocatorFromElement(WebElement element) {
+        DriverProvider.setCustomDriverImplicitlyWait(0);
         // There are two types of element.toString() :
         // 1)If element not exists, value starts with : 'Proxy element for'
-        // 2)If not: 'ChromeDriver: chrome on MAC'
+        // 2)If not: 'ChromeDriver: chrome on MAC [%hash] ->'
         String stringValueOfElement = element.toString();
+        String resultValue;
         if (stringValueOfElement.contains("Proxy element for")) {
-            return stringValueOfElement.replace("Proxy element for: DefaultElementLocator", "");
+            resultValue = stringValueOfElement.replace("Proxy element for: DefaultElementLocator", "");
         }
         else {
             int indexOfSeparator = stringValueOfElement.indexOf("->");
-            return stringValueOfElement.substring(indexOfSeparator, element.toString().length() - 1);
+            resultValue = stringValueOfElement.substring(indexOfSeparator, element.toString().length() - 1);
         }
+        DriverProvider.setDefaultImplicitlyWait();
+        return resultValue;
     }
 }

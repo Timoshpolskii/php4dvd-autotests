@@ -17,13 +17,19 @@ public class UserDBActions implements HasLogger {
     private Logger log = getLogger();
 
     public List<UserDBObject> getListOfUsers() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
-        log.debug("Select list of users from database");
-
         List<UserDBObject> listOfUsers = new ArrayList<>();
-        while (resultSet.next()) {
-            listOfUsers.add(this.serializeUser(resultSet));
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users;");
+            log.debug("Select list of users from database");
+
+            while (resultSet.next()) {
+                listOfUsers.add(this.serializeUser(resultSet));
+            }
+        }
+        catch (NullPointerException e) {
+            log.info("FAILED to get list of users from database");
+            e.printStackTrace();
         }
         return listOfUsers;
     }
@@ -34,10 +40,16 @@ public class UserDBActions implements HasLogger {
     }
 
     public void deleteUser(UserDBObject userDBObject) throws SQLException {
-        Statement statement = connection.createStatement();
-        statement.execute("DELETE FROM users WHERE id = " + userDBObject.getId() + ";");
-        log.debug("Delete user with name [" + userDBObject.getUserName() +
-                "] and ID [" + userDBObject.getId() + "] from database");
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute("DELETE FROM users WHERE id = " + userDBObject.getId() + ";");
+            log.debug("Delete user with name [" + userDBObject.getUserName() +
+                    "] and ID [" + userDBObject.getId() + "] from database");
+        }
+        catch (NullPointerException e) {
+            log.info("FAILED to delete user [" + userDBObject.getUserName() + "] from database");
+            e.printStackTrace();
+        }
     }
 
     private UserDBObject serializeUser(ResultSet resultSet) throws SQLException {

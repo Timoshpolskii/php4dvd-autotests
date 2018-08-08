@@ -17,26 +17,44 @@ public class MovieDBActions implements HasLogger {
     private Logger log = getLogger();
 
     public void deleteAllMovies() throws SQLException {
-        Statement statement = connection.createStatement();
-        statement.execute("DELETE FROM movies;");
-        log.debug("All movies are deleted from database");
+        try {
+            Statement statement = connection.createStatement();
+            statement.execute("DELETE FROM movies;");
+            log.debug("All movies are deleted from database");
+        }
+        catch (NullPointerException e) {
+            log.info("FAILED to delete all movies from database");
+            e.printStackTrace();
+        }
     }
 
     public void deleteListOfMoviesByName(List<String> movieNames) throws SQLException {
-        Statement statement = connection.createStatement();
-        String listOfMoviesQuery = this.getMoviesQueryFromListOfMovies(movieNames);
-        statement.execute("DELETE FROM movies WHERE name IN (" + listOfMoviesQuery + ");");
-        log.debug("List of movies is deleted from database: [" + movieNames +"]");
+        try {
+            Statement statement = connection.createStatement();
+            String listOfMoviesQuery = this.getMoviesQueryFromListOfMovies(movieNames);
+            statement.execute("DELETE FROM movies WHERE name IN (" + listOfMoviesQuery + ");");
+            log.debug("List of movies is deleted from database: [" + movieNames +"]");
+        }
+        catch (NullPointerException e) {
+            log.info("FAILED to delete movies " + movieNames + " from database");
+            e.printStackTrace();
+        }
     }
 
     public List<MovieDBObject> getListOfMovies() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM movies;");
-        log.debug("Select list of movies from database");
-
         List<MovieDBObject> listOfUsers = new ArrayList<>();
-        while (resultSet.next()) {
-            listOfUsers.add(this.serializeMovie(resultSet));
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM movies;");
+            log.debug("Select list of movies from database");
+
+            while (resultSet.next()) {
+                listOfUsers.add(this.serializeMovie(resultSet));
+            }
+        }
+        catch (NullPointerException e) {
+            log.info("FAILED to get list of movies from database");
+            e.printStackTrace();
         }
         return listOfUsers;
     }

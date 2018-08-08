@@ -14,10 +14,10 @@ public class PropertiesReader {
         Properties prop = new Properties();
         try (InputStream input = new FileInputStream(currentPath + filePath)) {
             prop.load(input);
-            LogManager.getLogger().debug("Success read from file [" + filePath + "]");
+            LogManager.getLogger().debug("SUCCESS read from file [" + filePath + "]");
         } catch (IOException ex) {
             ex.printStackTrace();
-            LogManager.getLogger().info("Failed to read from file [" + filePath + "]");
+            LogManager.getLogger().info("FAILED to read from file [" + filePath + "]");
         }
         return prop;
     }
@@ -26,10 +26,10 @@ public class PropertiesReader {
         Properties prop = new Properties();
         try (InputStream input = new FileInputStream(currentPath + filePath)) {
             prop.load(input);
-            LogManager.getLogger().debug("Success read from file [" + filePath + "]");
+            LogManager.getLogger().debug("SUCCESS read from file [" + filePath + "]");
         } catch (IOException ex) {
             ex.printStackTrace();
-            LogManager.getLogger().info("Failed to read from file [" + filePath + "]");
+            LogManager.getLogger().info("FAILED to read from file [" + filePath + "]");
         }
         return prop.getProperty(key);
     }

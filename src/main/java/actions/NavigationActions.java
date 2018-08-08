@@ -11,7 +11,7 @@ import java.util.Properties;
 public class NavigationActions implements HasLogger {
     private String NAVIGATION_URLS_FILEPATH = "/src/test/resources/navigation_URLs.properties";
     private Properties properties = PropertiesReader.readFromFile(NAVIGATION_URLS_FILEPATH);
-    Logger log = getLogger();
+    private Logger log = getLogger();
 
     private String BASE_URL = properties.getProperty("base_URL");
     private String MY_PROFILE_URL = BASE_URL + properties.getProperty("my_profile_URL");
