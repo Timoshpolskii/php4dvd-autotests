@@ -1,5 +1,7 @@
 package helper;
 
+import org.apache.logging.log4j.LogManager;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,40 +12,24 @@ public class PropertiesReader {
 
     public static Properties readFromFile(String filePath) {
         Properties prop = new Properties();
-        InputStream input = null;
-        try {
-            input = new FileInputStream(currentPath + filePath);
+        try (InputStream input = new FileInputStream(currentPath + filePath)) {
             prop.load(input);
+            LogManager.getLogger().debug("SUCCESS read from file [" + filePath + "]");
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            LogManager.getLogger().info("FAILED to read from file [" + filePath + "]");
         }
         return prop;
     }
 
     public static String readPropertyFromFile(String filePath, String key) {
         Properties prop = new Properties();
-        InputStream input = null;
-        try {
-            input = new FileInputStream(currentPath + filePath);
+        try (InputStream input = new FileInputStream(currentPath + filePath)) {
             prop.load(input);
+            LogManager.getLogger().debug("SUCCESS read from file [" + filePath + "]");
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            if (input != null) {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            LogManager.getLogger().info("FAILED to read from file [" + filePath + "]");
         }
         return prop.getProperty(key);
     }

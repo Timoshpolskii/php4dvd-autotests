@@ -55,5 +55,4 @@ public class LoginTests extends BaseTest {
         boolean isAddButtonAbsent = dashboardActions.isAddButtonAbsent();
         assertThat("Add button should NOT be displayed", isAddButtonAbsent);
     }
-
 }
