@@ -4,6 +4,7 @@ import actions.DashboardActions;
 import actions.LoginActions;
 import actions.NavigationActions;
 import driver.DriverProvider;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import testData.UserCredentialsDataProvider;
@@ -18,7 +19,8 @@ public class LoginTests extends BaseTest {
     private NavigationActions navigationActions = new NavigationActions();
 
     @BeforeMethod
-    public void clearCookies() {
+    public void logoutAndOpenHomePage() {
+        //App is logged in with admin user from BeforeSuite method. We need to logout to run this test class
         DriverProvider.getDriver().manage().deleteAllCookies();
         navigationActions.openHomePage();
     }
@@ -54,5 +56,12 @@ public class LoginTests extends BaseTest {
         dashboardActions.waitForPageToBeLoaded();
         boolean isAddButtonAbsent = dashboardActions.isAddButtonAbsent();
         assertThat("Add button should NOT be displayed", isAddButtonAbsent);
+    }
+
+    @AfterClass
+    public void loginAsAdminCredentials() {
+        //After all tests complete running, we need to login to app from BeforeSuite method
+        DriverProvider.getDriver().manage().deleteAllCookies();
+        super.loginWithAdminCredentials();
     }
 }
