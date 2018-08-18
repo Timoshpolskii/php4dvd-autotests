@@ -30,7 +30,7 @@ public class DashboardActions implements HasWaiter {
     }
 
     public boolean isAddButtonAbsent() {
-        return waiter(5).waitAbsent(dashboardPage.btnAdd);
+        return waiter(2).waitAbsent(dashboardPage.btnAdd);
     }
 
     public WebElement getMovieContainerByMovieName(String name) {

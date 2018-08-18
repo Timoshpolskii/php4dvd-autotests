@@ -19,93 +19,50 @@ public class Waiter implements HasLogger {
         this.duration = duration;
     }
 
-    public Waiter() {
-    }
+    public Waiter() {}
 
     public void sendKeys(WebElement element, String text) {
-        try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
-            log.debug("Send text [" + text + "] to element with locator" + getLocatorFromElement(element));
-            element.sendKeys(text);
-        }
-        catch (TimeoutException e) {
-            log.info("FAILED to wait for element to be displayed" + getLocatorFromElement(element));
-            e.printStackTrace();
-        }
+        wait.until(ExpectedConditions.visibilityOf(element));
+        log.debug("Send text [" + text + "] to element with locator" + getLocatorFromElement(element));
+        element.sendKeys(text);
     }
 
     public void sendKeys(By by, WebElement parentElement, String text) {
-        try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
-            log.debug("Send text [" + text + "] to element with locator [" + by.toString()
-                    + "] and parent element " + getLocatorFromElement(parentElement));
-            parentElement.findElement(by).sendKeys(text);
-        }
-        catch (TimeoutException e) {
-            log.info("FAILED to wait for element with locator :"
-                    + by.toString() + "and parent element" + getLocatorFromElement(parentElement) + "to be displayed" );
-            e.printStackTrace();
-        }
+        wait.until(ExpectedConditions.visibilityOf(parentElement));
+        log.debug("Send text [" + text + "] to element with locator [" + by.toString()
+                + "] and parent element " + getLocatorFromElement(parentElement));
+        parentElement.findElement(by).sendKeys(text);
     }
 
     public void click(WebElement element) {
-        try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
-            log.debug("Click element with locator " + getLocatorFromElement(element));
-            element.click();
-        }
-        catch (TimeoutException e) {
-            log.info("FAILED to wait for element to be displayed" + getLocatorFromElement(element));
-            e.printStackTrace();
-        }
-
+        wait.until(ExpectedConditions.visibilityOf(element));
+        log.debug("Click element with locator " + getLocatorFromElement(element));
+        element.click();
     }
 
     public void click(By by, WebElement parentElement) {
-        try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
-            log.debug("Click element with locator [" + by.toString()
-                    + "] and parent element " + getLocatorFromElement(parentElement));
-            parentElement.findElement(by).click();
-        }
-        catch (TimeoutException e) {
-            log.info("FAILED to wait for element with locator :"
-                    + by.toString() + "and parent element" + getLocatorFromElement(parentElement) + "to be displayed" );
-            e.printStackTrace();
-        }
+        wait.until(ExpectedConditions.visibilityOf(parentElement));
+        log.debug("Click element with locator [" + by.toString()
+                + "] and parent element " + getLocatorFromElement(parentElement));
+        parentElement.findElement(by).click();
     }
 
     public boolean waitDisplayed(WebElement element) {
-        try {
-            log.debug("Wait for element with locator " + getLocatorFromElement(element) + " to be displayed");
-            return wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
-        }
-        catch (TimeoutException e) {
-            log.info("FAILED to wait for element to be displayed" + getLocatorFromElement(element));
-            e.printStackTrace();
-            return false;
-        }
+        log.debug("Wait for element with locator " + getLocatorFromElement(element) + " to be displayed");
+        return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
     }
 
     public boolean waitAbsent(WebElement element) {
-        try {
-            DriverProvider.setCustomDriverImplicitlyWait(0);
-            log.debug("Wait for element with locator " + getLocatorFromElement(element) + " to be absent");
-            boolean isAbsent = wait.until(CustomExpectedConditions.elementToBeAbsent(element));
-            DriverProvider.setDefaultImplicitlyWait();
-            return isAbsent;
-        }
-        catch (TimeoutException e) {
-            log.info("FAILED to wait for element to be absent " + getLocatorFromElement(element));
-            e.printStackTrace();
-            return false;
-        }
-
+        DriverProvider.setCustomDriverImplicitlyWait(0);
+        log.debug("Wait for element with locator " + getLocatorFromElement(element) + " to be absent");
+        boolean isAbsent = wait.until(CustomExpectedConditions.elementToBeAbsent(element));
+        DriverProvider.setDefaultImplicitlyWait();
+        return isAbsent;
     }
 
     public String getText(WebElement element) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
+            wait.until(ExpectedConditions.visibilityOf(element));
             log.debug("Get text from element with locator:" + getLocatorFromElement(element));
             return element.getText();
 
@@ -119,7 +76,7 @@ public class Waiter implements HasLogger {
 
     public String getText(By by, WebElement parentElement) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
+            wait.until(ExpectedConditions.visibilityOf(parentElement));
             log.debug("Get text from element with locator [" + by.toString()
                     + "] and parent element " + getLocatorFromElement(parentElement));
             return parentElement.findElement(by).getText();
@@ -133,14 +90,8 @@ public class Waiter implements HasLogger {
     }
 
     public void acceptAlert() {
-        try {
-            log.info("Accept browser alert");
-            wait.until(ExpectedConditions.alertIsPresent()).accept();
-        }
-        catch (TimeoutException e) {
-            log.info("FAILED to wat for alert to be displayed");
-            e.printStackTrace();
-        }
+        log.info("Accept browser alert");
+        wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
 
     private String getLocatorFromElement(WebElement element) {

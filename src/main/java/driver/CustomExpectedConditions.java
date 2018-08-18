@@ -18,16 +18,4 @@ class CustomExpectedConditions {
             return result;
         };
     }
-
-    static ExpectedCondition<Boolean> elementToBeDisplayed(WebElement element) {
-        return driver -> {
-            boolean result;
-            try {
-                result = (element.isDisplayed());
-            } catch (NoSuchElementException | StaleElementReferenceException e) {
-                result = false;
-            }
-            return result;
-        };
-    }
 }
