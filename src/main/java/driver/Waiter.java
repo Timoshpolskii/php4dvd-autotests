@@ -24,7 +24,7 @@ public class Waiter implements HasLogger {
 
     public void sendKeys(WebElement element, String text) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
+            wait.until(ExpectedConditions.visibilityOf(element));
             log.debug("Send text [" + text + "] to element with locator" + getLocatorFromElement(element));
             element.sendKeys(text);
         }
@@ -36,7 +36,7 @@ public class Waiter implements HasLogger {
 
     public void sendKeys(By by, WebElement parentElement, String text) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
+            wait.until(ExpectedConditions.visibilityOf(parentElement));
             log.debug("Send text [" + text + "] to element with locator [" + by.toString()
                     + "] and parent element " + getLocatorFromElement(parentElement));
             parentElement.findElement(by).sendKeys(text);
@@ -50,7 +50,7 @@ public class Waiter implements HasLogger {
 
     public void click(WebElement element) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
+            wait.until(ExpectedConditions.visibilityOf(element));
             log.debug("Click element with locator " + getLocatorFromElement(element));
             element.click();
         }
@@ -63,7 +63,7 @@ public class Waiter implements HasLogger {
 
     public void click(By by, WebElement parentElement) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
+            wait.until(ExpectedConditions.visibilityOf(parentElement));
             log.debug("Click element with locator [" + by.toString()
                     + "] and parent element " + getLocatorFromElement(parentElement));
             parentElement.findElement(by).click();
@@ -78,7 +78,7 @@ public class Waiter implements HasLogger {
     public boolean waitDisplayed(WebElement element) {
         try {
             log.debug("Wait for element with locator " + getLocatorFromElement(element) + " to be displayed");
-            return wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
+            return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
         }
         catch (TimeoutException e) {
             log.info("FAILED to wait for element to be displayed" + getLocatorFromElement(element));
@@ -105,7 +105,7 @@ public class Waiter implements HasLogger {
 
     public String getText(WebElement element) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(element));
+            wait.until(ExpectedConditions.visibilityOf(element));
             log.debug("Get text from element with locator:" + getLocatorFromElement(element));
             return element.getText();
 
@@ -119,7 +119,7 @@ public class Waiter implements HasLogger {
 
     public String getText(By by, WebElement parentElement) {
         try {
-            wait.until(CustomExpectedConditions.elementToBeDisplayed(parentElement));
+            wait.until(ExpectedConditions.visibilityOf(parentElement));
             log.debug("Get text from element with locator [" + by.toString()
                     + "] and parent element " + getLocatorFromElement(parentElement));
             return parentElement.findElement(by).getText();

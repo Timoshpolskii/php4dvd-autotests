@@ -10,7 +10,7 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import java.util.concurrent.TimeUnit;
 
-public class DriverProvider {
+public final class DriverProvider {
     private static WebDriver driver = null;
     private static final long DEFAULT_IMPLICITLY_WAIT = 5;
     private static Logger log = LogManager.getLogger();
@@ -19,9 +19,9 @@ public class DriverProvider {
 
     public static synchronized WebDriver getDriver() {
         if (driver == null) {
-            return initDriver();
+            driver = initDriver();
         }
-        else return driver;
+        return driver;
     }
 
     private static WebDriver initDriver() {
